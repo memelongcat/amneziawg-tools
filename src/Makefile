@@ -60,7 +60,7 @@ ifeq ($(PLATFORM),haiku)
 LDLIBS += -lnetwork -lbsd
 endif
 ifeq ($(PLATFORM),windows)
-CC := x86_64-w64-mingw32-clang
+CC := musl-gcc
 WINDRES := $(shell $(CC) $(CFLAGS) -print-prog-name=windres 2>/dev/null)
 CFLAGS += -Iwincompat/include -include wincompat/compat.h -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 -flto
 LDLIBS += -lws2_32 -lsetupapi -lole32 -ladvapi32 -lntdll -Lwincompat
