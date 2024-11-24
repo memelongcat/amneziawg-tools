@@ -56,11 +56,16 @@ endif
 ifeq ($(PLATFORM),freebsd)
 LDLIBS += -lnv
 endif
+ifeq ($(PLATFORM),linux)
+CC = musl-gcc
+CFLAGS += -static
+endif
 ifeq ($(PLATFORM),haiku)
 LDLIBS += -lnetwork -lbsd
 endif
 ifeq ($(PLATFORM),windows)
-CC := musl-gcc
+CC := x86_64-w64-mingw32-clang
+
 WINDRES := $(shell $(CC) $(CFLAGS) -print-prog-name=windres 2>/dev/null)
 CFLAGS += -Iwincompat/include -include wincompat/compat.h -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 -flto
 LDLIBS += -lws2_32 -lsetupapi -lole32 -ladvapi32 -lntdll -Lwincompat
